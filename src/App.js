@@ -9,14 +9,15 @@ function App() {
   const [list, updateList] = useState([]);
 
   useEffect(() => {
-    // let rl = [];
-    // db.getCollection("generals").then((docs) => {
-    //   docs.forEach((doc) => {
-    //     console.log(doc.id, "=>", doc.data());
-    //     rl.push({ id: doc.id, info: doc.data() });
-    //   });
-    //   updateList(rl);
-    // });
+    const fetchData = async () => {
+      let rl = [];
+      const data = await db.getCollection("generals");
+      data.forEach((doc) => {
+        rl.push(doc.data());
+      });
+      updateList(rl);
+    };
+    fetchData();
   }, []);
 
   return (
