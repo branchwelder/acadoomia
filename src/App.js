@@ -1,50 +1,36 @@
-import "./App.css";
-import PaperCard from "./PaperCard";
+import "./styles/App.css";
+import PaperSearch from "./PaperSearch";
+import ReadingList from "./ReadingList";
 import { db } from "./db";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [searchResults, updateSearchResults] = useState([]);
-  async function addPaper() {
-    db.send({ authors: "asdf" });
-  }
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [list, updateList] = useState([]);
 
-  function searchForPaper() {
-    fetch(
-      `https://api.semanticscholar.org/graph/v1/paper/search?query=${query}&fields=url,authors,abstract,title`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        updateSearchResults(data.data);
-      });
-  }
-
-  function displaySearchResults() {
-    return searchResults.map((result) => {
-      return (
-        <PaperCard
-          title={result.title}
-          authors={result.authors}
-          abstract={result.abstract}
-          key={result.paperId}
-          tags={[]}
-        />
-      );
-    });
-  }
+  useEffect(() => {
+    // let rl = [];
+    // db.getCollection("generals").then((docs) => {
+    //   docs.forEach((doc) => {
+    //     console.log(doc.id, "=>", doc.data());
+    //     rl.push({ id: doc.id, info: doc.data() });
+    //   });
+    //   updateList(rl);
+    // });
+  }, []);
 
   return (
     <div>
       <div className='projectTitle'>hannah's general exam</div>
-      <div className='cardContainer'></div>
-      <button onClick={addPaper}>add</button>
-      <div>
-        <input type='text' onChange={(e) => setQuery(e.target.value)}></input>
-        <button onClick={searchForPaper}>Lookup</button>
-      </div>
-      <div className='cardContainer'>{displaySearchResults()}</div>
+      <button onClick={() => setShowSearchModal(true)}>Search for Paper</button>
+      <ReadingList list={list} updateList={updateList} />
+      {showSearchModal && (
+        <PaperSearch
+          list={list}
+          updateList={updateList}
+          setShowSearchModal={setShowSearchModal}
+        />
+      )}
     </div>
   );
 }

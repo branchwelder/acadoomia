@@ -7,6 +7,7 @@ import {
   setDoc,
   deleteDoc,
   doc,
+  getDocs,
 } from "firebase/firestore";
 
 let store;
@@ -35,6 +36,9 @@ db.edit = async function (id, msg) {
 };
 db.delete = async function (id) {
   return deleteDoc(doc(store, collection_name, id));
+};
+db.getCollection = async function (collectionName) {
+  return getDocs(collection(store, collectionName));
 };
 
 export { db };
