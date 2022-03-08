@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 
 let store;
-const collection_name = "papers";
+const collection_name = "generals";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqzDyn5hpZhIasXWSVCXEuUx7BWWX8IxM",

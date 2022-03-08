@@ -1,4 +1,5 @@
 import Tag from "./Tag";
+import "./styles/PaperCard.css";
 import { useState } from "react";
 
 function PaperCard({ title, authors, abstract, tags }) {

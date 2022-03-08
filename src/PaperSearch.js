@@ -9,7 +9,7 @@ function PaperSearch({ list, updateList, setShowSearchModal }) {
 
   async function addItem(item) {
     console.log(item);
-    db.send({ authors: "asdf" });
+    db.send(item);
   }
 
   function searchForPaper() {
@@ -42,18 +42,24 @@ function PaperSearch({ list, updateList, setShowSearchModal }) {
   }
 
   return (
-    <div>
-      <div>
-        <input type='text' onChange={(e) => setQuery(e.target.value)}></input>
-        <button onClick={searchForPaper}>Lookup</button>
-        <button
-          onClick={() => {
-            setShowSearchModal(false);
-          }}>
-          Close
-        </button>
+    <div
+      className='modal-background'
+      onClick={() => {
+        // setShowSearchModal(false);
+      }}>
+      <div className='modal-content'>
+        <div>
+          <input type='text' onChange={(e) => setQuery(e.target.value)}></input>
+          <button onClick={searchForPaper}>Lookup</button>
+          <button
+            onClick={() => {
+              setShowSearchModal(false);
+            }}>
+            Close
+          </button>
+        </div>
+        <div className='cardContainer'>{displaySearchResults()}</div>
       </div>
-      <div className='cardContainer'>{displaySearchResults()}</div>
     </div>
   );
 }
